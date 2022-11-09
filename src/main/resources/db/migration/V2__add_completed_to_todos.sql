@@ -1,0 +1,1 @@
+alter table todos add column completed boolean not null default false;
