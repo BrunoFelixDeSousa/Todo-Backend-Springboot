@@ -16,6 +16,6 @@ public class ToDo {
     @Column
     private String name;
 
-    @Column()
+    @Column
     private boolean completed;
 }
