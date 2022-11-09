@@ -4,6 +4,7 @@ import com.bruno.felix.todobackendspringboot.dto.CreateToDoDto;
 import com.bruno.felix.todobackendspringboot.dto.ToDoDto;
 import com.bruno.felix.todobackendspringboot.model.ToDo;
 import com.bruno.felix.todobackendspringboot.repository.ToDoRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,11 +20,12 @@ public class ToDoService {
 
         ToDo newToDo = new ToDo();
 
-        newToDo.setName(createToDoDTO.getName());
-        newToDo.setCompleted(createToDoDTO.isCompleted());
+//        newToDo.setName(createToDoDTO.getName());
+//        newToDo.setCompleted(createToDoDTO.isCompleted());
+        BeanUtils.copyProperties(createToDoDTO, newToDo);
 
-        ToDo toDo = toDoRepository.save(newToDo);
+        newToDo = toDoRepository.save(newToDo);
 
-        return new ToDoDto(toDo);
+        return new ToDoDto(newToDo);
     }
 }
