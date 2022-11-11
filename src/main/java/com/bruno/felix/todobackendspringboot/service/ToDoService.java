@@ -36,4 +36,11 @@ public class ToDoService {
 //        return toDos.stream().map(entity -> new ToDoDto(entity)).toList();
         return toDos.stream().map(ToDoDto::new).toList();
     }
+
+    public List<ToDoDto> getToDos(Boolean completed) {
+
+        List<ToDo> toDos = toDoRepository.findByCompleted(completed);
+//        return toDos.stream().map(entity -> new ToDoDto(entity)).toList();
+        return toDos.stream().map(ToDoDto::new).toList();
+    }
 }
