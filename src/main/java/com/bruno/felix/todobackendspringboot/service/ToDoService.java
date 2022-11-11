@@ -7,6 +7,8 @@ import com.bruno.felix.todobackendspringboot.repository.ToDoRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ToDoService {
 
@@ -19,7 +21,6 @@ public class ToDoService {
     public ToDoDto createTodo(CreateToDoDto createToDoDTO) {
 
         ToDo newToDo = new ToDo();
-
 //        newToDo.setName(createToDoDTO.getName());
 //        newToDo.setCompleted(createToDoDTO.isCompleted());
         BeanUtils.copyProperties(createToDoDTO, newToDo);
@@ -27,5 +28,12 @@ public class ToDoService {
         newToDo = toDoRepository.save(newToDo);
 
         return new ToDoDto(newToDo);
+    }
+
+    public List<ToDoDto> getToDos() {
+
+        List<ToDo> toDos = toDoRepository.findAll();
+//        return toDos.stream().map(entity -> new ToDoDto(entity)).toList();
+        return toDos.stream().map(ToDoDto::new).toList();
     }
 }
