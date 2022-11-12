@@ -2,6 +2,7 @@ package com.bruno.felix.todobackendspringboot.controller;
 
 import com.bruno.felix.todobackendspringboot.dto.CreateToDoDto;
 import com.bruno.felix.todobackendspringboot.dto.ToDoDto;
+import com.bruno.felix.todobackendspringboot.dto.UpadateToDoDto;
 import com.bruno.felix.todobackendspringboot.service.ToDoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,11 +35,23 @@ public class ToDoController {
 
     @GetMapping("")
     public List<ToDoDto> getToDos(@RequestParam Optional<Boolean> completed) {
-        if (completed.isPresent()) {
-            return toDoService.getToDos(completed.get());
-        }
-        return toDoService.getToDos();
+
+//        if (completed.isPresent()) {
+//            return toDoService.getToDos(completed.get());
+//        }
+//        return toDoService.getToDos();
+
+        return completed.map(toDoService::getToDos).orElseGet(toDoService::getToDos);
     }
 
+    @GetMapping("/{id}")
+    public ToDoDto getToDoById(@PathVariable Long id) {
+        return toDoService.getToDoById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ToDoDto updateToDo(@PathVariable Long id, @RequestBody UpadateToDoDto upadateToDoDto) {
+        return toDoService.updateToDo(id, upadateToDoDto);
+    }
 
 }
