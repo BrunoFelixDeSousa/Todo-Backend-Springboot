@@ -74,4 +74,14 @@ public class ToDoService {
         }
 
     }
+
+    public void deleteToDo(Long id) {
+        Optional<ToDo> toDo = toDoRepository.findById(id);
+        if (toDo.isPresent()) {
+            toDoRepository.delete(toDo.get());
+        }
+        else {
+            throw new RuntimeException("deleteToDo - to do not found");
+        }
+    }
 }
