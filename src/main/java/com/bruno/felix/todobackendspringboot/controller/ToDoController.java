@@ -36,12 +36,12 @@ public class ToDoController {
     @GetMapping("")
     public List<ToDoDto> getToDos(@RequestParam Optional<Boolean> completed) {
 
-//        if (completed.isPresent()) {
-//            return toDoService.getToDos(completed.get());
-//        }
-//        return toDoService.getToDos();
+        if (completed.isPresent()) {
+            return toDoService.getToDos(completed.get());
+        }
+        return toDoService.getToDos();
 
-        return completed.map(toDoService::getToDos).orElseGet(toDoService::getToDos);
+//        return completed.map(toDoService::getToDos).orElseGet(toDoService::getToDos);
     }
 
     @GetMapping("/{id}")
